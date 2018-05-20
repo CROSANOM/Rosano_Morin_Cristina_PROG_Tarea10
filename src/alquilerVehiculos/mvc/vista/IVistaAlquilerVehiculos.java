@@ -1,13 +1,13 @@
 package alquilerVehiculos.mvc.vista;
 
-import alquilerVehiculos.mvc.controlador.IControladorAlquilerVehiculo;
+import alquilerVehiculos.mvc.controlador.IControladorAlquilerVehiculos;
 
-public interface IUTextualVista {
+public interface IVistaAlquilerVehiculos {
 
 	/**
 	 * @param controlador
 	 */
-	void setControlador(IControladorAlquilerVehiculo controlador);
+	void setControlador(IControladorAlquilerVehiculos controlador);
 
 	void comenzar();
 

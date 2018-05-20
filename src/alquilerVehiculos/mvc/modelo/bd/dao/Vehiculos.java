@@ -18,11 +18,11 @@ import alquilerVehiculos.mvc.modelo.dominio.vehiculo.Vehiculo;
 
 public class Vehiculos {
 	
-	public Vehiculo[] getVehiculos() {
+	public List<Vehiculo> getVehiculos() {
 		List<Vehiculo> vehiculos = new Vector<Vehiculo>();
 		Connection conexion = accesoBD.estableceConexion();
 		try {
-			String sentenciaStr = "select tipo, matricula, marca, modelo, cilindrada, numeroPlazas, pma, disponible from vehiculos";
+			String sentenciaStr = "select tipo, matricula, marca, modelo, cilindrada, numerosPlazas, pma, disponible from vehiculos";
 			Statement sentencia = (Statement) conexion.createStatement();
 			ResultSet filas = sentencia.executeQuery(sentenciaStr);
 			while (filas.next()) {
@@ -31,11 +31,11 @@ public class Vehiculos {
 				String marca = filas.getString(3);
 				String modelo = filas.getString("modelo");
 				int cilindrada = filas.getInt("cilindrada");
-				int numeroPlazas = filas.getInt("numeroPlazas");
+				int numerosPlazas = filas.getInt("numerosPlazas");
 				int pma = filas.getInt("pma");
 				boolean disponible = filas.getBoolean("disponible");
 				Vehiculo vehiculo = tipoVehiculo.getInstancia(matricula, marca, modelo, 
-						new DatosTecnicosVehiculo(cilindrada, numeroPlazas, pma));
+						new DatosTecnicosVehiculo(cilindrada, numerosPlazas, pma));
 				vehiculo.setDisponible(disponible);
 				vehiculos.add(vehiculo);
 			}
@@ -44,7 +44,7 @@ public class Vehiculos {
 			throw new ExcepcionAlquilerVehiculos("SQL Exception: "+ e.toString());
 		}
 		accesoBD.cierraConexion(conexion);
-		return vehiculos.toArray(new Vehiculo[0]);
+		return vehiculos;
 	}
 	
 	public void anadir(Vehiculo vehiculo) {
@@ -95,7 +95,7 @@ public class Vehiculos {
 		Vehiculo vehiculo = null;
 		Connection conexion = accesoBD.estableceConexion();
 		try {
-			String sentenciaStr = "select tipo, marca, modelo, cilindrada, numeroPlazas, pma, disponible from vehiculos where matricula = ?";
+			String sentenciaStr = "select tipo, marca, modelo, cilindrada, numerosPlazas, pma, disponible from vehiculos where matricula = ?";
 			PreparedStatement sentencia = (PreparedStatement) conexion.prepareStatement(sentenciaStr);
 			sentencia.setString(1, matricula);
 			ResultSet filas = sentencia.executeQuery();
@@ -104,7 +104,7 @@ public class Vehiculos {
 				String marca = filas.getString(2);
 				String modelo = filas.getString("modelo");
 				int cilindrada = filas.getInt("cilindrada");
-				int numeroPlazas = filas.getInt("numeroPlazas");
+				int numeroPlazas = filas.getInt("numerosPlazas");
 				int pma = filas.getInt("pma");
 				boolean disponible = filas.getBoolean("disponible");
 				vehiculo = tipoVehiculo.getInstancia(matricula, marca, modelo, 
@@ -142,7 +142,7 @@ public class Vehiculos {
 		Vehiculo vehiculo = null;
 		Connection conexion = accesoBD.estableceConexion();
 		try {
-			String sentenciaStr = "select tipo, matricula, marca, modelo, cilindrada, numeroPlazas, pma, disponible from vehiculos where identificador = ?";
+			String sentenciaStr = "select tipo, matricula, marca, modelo, cilindrada, numerosPlazas, pma, disponible from vehiculos where identificador = ?";
 			PreparedStatement sentencia = (PreparedStatement) conexion.prepareStatement(sentenciaStr);
 			sentencia.setInt(1, identificador);
 			ResultSet filas = sentencia.executeQuery();
@@ -152,11 +152,11 @@ public class Vehiculos {
 				String marca = filas.getString(3);
 				String modelo = filas.getString("modelo");
 				int cilindrada = filas.getInt("cilindrada");
-				int numeroPlazas = filas.getInt("numeroPlazas");
+				int numerosPlazas = filas.getInt("numerosPlazas");
 				int pma = filas.getInt("pma");
 				boolean disponible = filas.getBoolean("disponible");
 				vehiculo = tipoVehiculo.getInstancia(matricula, marca, modelo, 
-						new DatosTecnicosVehiculo(cilindrada, numeroPlazas, pma));
+						new DatosTecnicosVehiculo(cilindrada, numerosPlazas, pma));
 				vehiculo.setDisponible(disponible);
 			}
 		} catch (SQLException e) {

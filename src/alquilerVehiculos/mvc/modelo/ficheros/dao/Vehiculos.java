@@ -1,4 +1,4 @@
-package alquilerVehiculos.mvc.modelo.dao;
+package alquilerVehiculos.mvc.modelo.ficheros.dao;
 
 import java.io.EOFException;
 import java.io.File;
