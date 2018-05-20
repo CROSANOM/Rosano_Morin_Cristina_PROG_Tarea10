@@ -1,4 +1,4 @@
-package alquilerVehiculos.mvc.modelo.dao;
+package alquilerVehiculos.mvc.modelo.ficheros.dao;
 
 import java.io.EOFException;
 import java.io.File;
@@ -52,7 +52,7 @@ public class Alquileres {
 				// Excepciones se capturan para que se pare el programa
 			} catch (EOFException eo) {
 				entrada.close();
-				System.out.println("Fichero alquileres leí­do satisfactoriamente.");
+				System.out.println("Fichero alquileres leï¿½do satisfactoriamente.");
 			} catch (ClassNotFoundException e) {
 				System.out.println("No puedo encontrar la clase que tengo que leer.");
 			} catch (IOException e) {

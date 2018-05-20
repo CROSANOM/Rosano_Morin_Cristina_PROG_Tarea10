@@ -21,7 +21,7 @@ public class DatosTecnicosVehiculo implements Serializable {
 	/**
 	 * @param cilindrada
 	 * @param numerosPlazas
-	 * @param pma
+	 * @param pmas
 	 */
 	public DatosTecnicosVehiculo(int cilindrada, int numerosPlazas, int pma) {
 

@@ -1,6 +1,6 @@
 package alquilerVehiculos.mvc.vista;
 
-import alquilerVehiculos.mvc.controlador.IControladorAlquilerVehiculo;
+import alquilerVehiculos.mvc.controlador.IControladorAlquilerVehiculos;
 import alquilerVehiculos.mvc.modelo.dominio.Alquiler;
 import alquilerVehiculos.mvc.modelo.dominio.Cliente;
 import alquilerVehiculos.mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
@@ -8,10 +8,10 @@ import alquilerVehiculos.mvc.modelo.dominio.vehiculo.TipoVehiculo;
 import alquilerVehiculos.mvc.modelo.dominio.vehiculo.Vehiculo;
 import alquilerVehiculos.mvc.vista.utilidades.Consola;
 
-public class IUTextual implements IUTextualVista {
+public class IUTextual implements IVistaAlquilerVehiculos {
 
 	// atributo
-	IControladorAlquilerVehiculo controlador;
+	IControladorAlquilerVehiculos controlador;
 
 	// constructor
 
@@ -22,7 +22,7 @@ public class IUTextual implements IUTextualVista {
 	// SetControlado(Controlador )
 
 	@Override
-	public void setControlador(IControladorAlquilerVehiculo controlador) {
+	public void setControlador(IControladorAlquilerVehiculos controlador) {
 		this.controlador = controlador;
 
 	}
@@ -61,7 +61,7 @@ public class IUTextual implements IUTextualVista {
 		Vehiculo vehiculo = controlador.buscarVehiculo(matricula);
 		Cliente cliente = controlador.buscarCliente(dni);
 		if (vehiculo == null)
-			System.out.println("No existe un turismo con esa matrícula" + "\n");
+			System.out.println("No existe un turismo con esa matrï¿½cula" + "\n");
 		else {
 			try {
 				controlador.abrirAlquiler(cliente, vehiculo);
@@ -77,13 +77,15 @@ public class IUTextual implements IUTextualVista {
 
 	public void cerrarAlquiler() {
 		Consola.mostrarCabecera("Cerrar Alquiler");
+		String dni = Consola.leerDni();
+		Cliente cliente =controlador.buscarCliente(dni);
 		String matricula = Consola.leerMatricula();
 		Vehiculo vehiculo = controlador.buscarVehiculo(matricula);
 		if (vehiculo == null)
 			System.out.println("ERROR: No existe un vehiculo con dicha matriÂ­cula\n");
 		else {
 			try {
-				controlador.cerrarAlquiler(vehiculo);
+				controlador.cerrarAlquiler(cliente,vehiculo);
 				System.out.println("Alquiler cerrado satisfactoriamente");
 			} catch (ExcepcionAlquilerVehiculos e) {
 				System.out.printf("ERROR: %s%n%n", e.getMessage());
@@ -137,9 +139,9 @@ public class IUTextual implements IUTextualVista {
 
 		try {
 			controlador.buscarVehiculo(matricula);
-			Consola.mostrarCabecera("Listado de Alquileres por vehículo");
+			Consola.mostrarCabecera("Listado de Alquileres por vehï¿½culo");
 			if (controlador.obtenerAlquileresVehiculos(matricula).size() == 0) {
-				System.out.println("El vehículo solicitado no tiene alquileres en curso.");
+				System.out.println("El vehï¿½culo solicitado no tiene alquileres en curso.");
 			} else {
 				for (Alquiler alquileresVehiculo : controlador.obtenerAlquileresVehiculos(matricula)) {
 					System.out.println(alquileresVehiculo);
@@ -169,7 +171,7 @@ public class IUTextual implements IUTextualVista {
 		Consola.mostrarCabecera("Buscar Vehiculo");
 		String matricula = Consola.leerMatricula();
 		Vehiculo vehiculoBuscado = controlador.buscarVehiculo(matricula);
-		String mensaje = (vehiculoBuscado != null) ? vehiculoBuscado.toString() : "El veh­culo no existe";
+		String mensaje = (vehiculoBuscado != null) ? vehiculoBuscado.toString() : "El vehï¿½culo no existe";
 		System.out.printf("%s%n%n", mensaje);
 	}
 
@@ -189,13 +191,13 @@ public class IUTextual implements IUTextualVista {
 	// anadirVehiculo
 
 	public void anadirVehiculo() {
-		Consola.mostrarCabecera("Añadir vehiculo");
+		Consola.mostrarCabecera("Aï¿½adir vehiculo");
 		int ordinalTipo = Consola.elegirTipoVehiculo();
 
 		try {
 			Vehiculo vehiculo = Consola.leerVehiculo();
 			controlador.anadirVehiculo(vehiculo, TipoVehiculo.getTipoVehiculosSegunOrdinal(ordinalTipo));
-			System.out.println("Vehiculo añadido satisfactoriamente\n");
+			System.out.println("Vehiculo aï¿½adido satisfactoriamente\n");
 		} catch (ExcepcionAlquilerVehiculos e) {
 			System.out.printf("ERROR: %s%n%n", e.getMessage());
 		}

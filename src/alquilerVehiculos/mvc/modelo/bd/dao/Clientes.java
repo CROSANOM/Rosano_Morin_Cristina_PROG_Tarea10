@@ -18,7 +18,7 @@ import alquilerVehiculos.mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 public class Clientes {
 
 	
-	public Cliente[] getClientes() {
+	public List<Cliente> getClientes() {
 		List<Cliente> clientes = new Vector<Cliente>();
 		Connection conexion = accesoBD.estableceConexion();
 		try {
@@ -39,10 +39,10 @@ public class Clientes {
 			throw new ExcepcionAlquilerVehiculos("SQL Exception: "+ e.toString());
 		}
 		accesoBD.cierraConexion(conexion);
-		return clientes.toArray(new Cliente[0]);
+		return clientes;
 	}
 	
-	public void anadir(Cliente cliente) {
+	public void anadirCliente(Cliente cliente) {
 		Connection conexion = accesoBD.estableceConexion();
 		try {
 			String sentenciaStr = "insert into clientes values (null, ?, ?, ?, ?, ?)";
@@ -64,7 +64,7 @@ public class Clientes {
 		accesoBD.cierraConexion(conexion);
 	}
 	
-	public void borrar(String dni) {
+	public void borrarCliente(String dni) {
 		Connection conexion = accesoBD.estableceConexion();
 		try {
 			String sentenciaStr = "delete from clientes where dni = ?";
@@ -126,7 +126,7 @@ public class Clientes {
 		return identificador;
 	}
 	
-	public static Cliente buscar(int identificador) {
+	public static Cliente buscarCliente(int identificador) {
 		Cliente cliente = null;
 		Connection conexion = accesoBD.estableceConexion();
 		try {
@@ -149,5 +149,9 @@ public class Clientes {
 		accesoBD.cierraConexion(conexion);
 		return cliente;
 	}
+
+
+
+
 
 }

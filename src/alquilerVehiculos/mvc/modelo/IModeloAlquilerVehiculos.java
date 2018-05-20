@@ -1,10 +1,7 @@
-package alquilerVehiculos.modelo;
+package alquilerVehiculos.mvc.modelo;
 
 import java.util.List;
 
-import alquilerVehiculos.mvc.modelo.dao.Alquileres;
-import alquilerVehiculos.mvc.modelo.dao.Clientes;
-import alquilerVehiculos.mvc.modelo.dao.Vehiculos;
 import alquilerVehiculos.mvc.modelo.dominio.Alquiler;
 import alquilerVehiculos.mvc.modelo.dominio.Cliente;
 import alquilerVehiculos.mvc.modelo.dominio.vehiculo.TipoVehiculo;
@@ -71,7 +68,7 @@ public interface IModeloAlquilerVehiculos {
 	/**
 	 * @param vehiculo
 	 */
-	void cerrarAlquiler(Vehiculo vehiculo);
+	void cerrarAlquiler(Cliente cliente,Vehiculo vehiculo);
 
 	void leerClientes();
 
@@ -96,5 +93,9 @@ public interface IModeloAlquilerVehiculos {
 	List<Alquiler> obtenerAlquileresCliente(String dni);
 
 	List<Alquiler> obtenerAlquileresVehiculos(String matricula);
+
+//	Cliente buscarCliente();
+//
+//	Cliente buscarClientes();
 
 }

@@ -7,7 +7,7 @@ import alquilerVehiculos.mvc.modelo.dominio.Cliente;
 import alquilerVehiculos.mvc.modelo.dominio.vehiculo.TipoVehiculo;
 import alquilerVehiculos.mvc.modelo.dominio.vehiculo.Vehiculo;
 
-public interface IControladorAlquilerVehiculo {
+public interface IControladorAlquilerVehiculos {
 
 	/**
 	 * llama a metodo de comenzar
@@ -67,7 +67,7 @@ public interface IControladorAlquilerVehiculo {
 	/**
 	 * @param vehiculo
 	 */
-	void cerrarAlquiler(Vehiculo vehiculo);
+	void cerrarAlquiler(Cliente cliente, Vehiculo vehiculo);
 
 	/**
 	 * @return vector de alquileres

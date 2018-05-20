@@ -2,19 +2,24 @@ package alquilerVehiculos.mvc.controlador;
 
 import java.util.List;
 
-import alquilerVehiculos.modelo.IModeloAlquilerVehiculos;
+import alquilerVehiculos.mvc.modelo.IModeloAlquilerVehiculos;
 import alquilerVehiculos.mvc.modelo.dominio.Alquiler;
 import alquilerVehiculos.mvc.modelo.dominio.Cliente;
 import alquilerVehiculos.mvc.modelo.dominio.vehiculo.TipoVehiculo;
 import alquilerVehiculos.mvc.modelo.dominio.vehiculo.Vehiculo;
-import alquilerVehiculos.mvc.vista.IUTextualVista;
 
-public class ControladorAlquilerVehiculos implements IControladorAlquilerVehiculo {
+import alquilerVehiculos.mvc.modelo.dao.Alquileres;
+import alquilerVehiculos.mvc.modelo.dao.Clientes;
+import alquilerVehiculos.mvc.modelo.dao.Vehiculos;
+
+import alquilerVehiculos.mvc.vista.IVistaAlquilerVehiculos;
+
+public class ControladorAlquilerVehiculos implements IControladorAlquilerVehiculos {
 
 	// atributos
 
 	IModeloAlquilerVehiculos modelo;
-	IUTextualVista vista;
+	IVistaAlquilerVehiculos vista;
 
 	// constructor
 
@@ -23,7 +28,7 @@ public class ControladorAlquilerVehiculos implements IControladorAlquilerVehicul
 	 * @param vista
 	 */
 
-	public ControladorAlquilerVehiculos(IModeloAlquilerVehiculos modelo, IUTextualVista vista) {
+	public ControladorAlquilerVehiculos(IModeloAlquilerVehiculos modelo, IVistaAlquilerVehiculos vista) {
 		this.vista = vista;
 		this.modelo = modelo;
 		vista.setControlador(this);
@@ -98,8 +103,8 @@ public class ControladorAlquilerVehiculos implements IControladorAlquilerVehicul
 	}
 
 	@Override
-	public void cerrarAlquiler(Vehiculo vehiculo) {
-		modelo.cerrarAlquiler(vehiculo);
+	public void cerrarAlquiler(Cliente cliente, Vehiculo vehiculo) {
+		modelo.cerrarAlquiler(cliente ,vehiculo);
 	}
 
 	public List<Alquiler> obtenerAlquileres() {

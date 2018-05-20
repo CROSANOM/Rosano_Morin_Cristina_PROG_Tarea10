@@ -1,20 +1,25 @@
-package alquilerVehiculos.modelo;
+package alquilerVehiculos.mvc.modelo.bd;
 
+import java.util.Collection;
 import java.util.List;
-import alquilerVehiculos.mvc.modelo.dao.Alquileres;
-import alquilerVehiculos.mvc.modelo.dao.Clientes;
-import alquilerVehiculos.mvc.modelo.dao.Vehiculos;
+
+import alquilerVehiculos.mvc.modelo.IModeloAlquilerVehiculos;
 import alquilerVehiculos.mvc.modelo.dominio.Alquiler;
 import alquilerVehiculos.mvc.modelo.dominio.Cliente;
+import alquilerVehiculos.mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 import alquilerVehiculos.mvc.modelo.dominio.vehiculo.TipoVehiculo;
 import alquilerVehiculos.mvc.modelo.dominio.vehiculo.Vehiculo;
+import alquilerVehiculos.mvc.modelo.bd.dao.Alquileres;
+import alquilerVehiculos.mvc.modelo.bd.dao.Clientes;
+import alquilerVehiculos.mvc.modelo.bd.dao.Vehiculos;
 
 /**
  * @author crosanom
  *
+ *
  */
 
-public class AlquilerVehiculos implements IModeloAlquilerVehiculos {
+public  class AlquilerVehiculos implements IModeloAlquilerVehiculos {
 	// atributos
 	private Clientes clientes;
 	private Vehiculos vehiculos;
@@ -40,9 +45,8 @@ public class AlquilerVehiculos implements IModeloAlquilerVehiculos {
 		clientes.borrarCliente(dni);
 	}
 
-	@Override
 	public Cliente buscarCliente(String dni) {
-		return clientes.buscarCliente(dni);
+		return clientes.buscar(dni);
 	}
 	
 	@Override
@@ -54,17 +58,17 @@ public class AlquilerVehiculos implements IModeloAlquilerVehiculos {
 
 	@Override
 	public void anadirVehiculo(Vehiculo vehiculo, TipoVehiculo tipoVehiculo) {
-		vehiculos.anadirVehiculo(vehiculo, tipoVehiculo);
+		vehiculos.anadir(vehiculo);
 	}
 
 	@Override
 	public void borrarVehiculo(String matricula) {
-		vehiculos.borrarVehiculo(matricula);
+		vehiculos.borrar(matricula);
 	}
 
 	@Override
 	public Vehiculo buscarVehiculo(String matricula) {
-		return vehiculos.buscarVehiculo(matricula);
+		return vehiculos.buscar(matricula);
 	}
 
 	@Override
@@ -76,61 +80,75 @@ public class AlquilerVehiculos implements IModeloAlquilerVehiculos {
 
 	@Override
 	public void abrirAlquiler(Cliente cliente, Vehiculo vehiculo) {
-		alquileres.abrirAlquiler(cliente, vehiculo);
+		comprobarExistenciaVehiculo(vehiculo);
+		alquileres.abrir(cliente, vehiculo);
+	}
+
+	private void comprobarExistenciaVehiculo(Vehiculo vehiculo) {
+		if(vehiculos.buscar(vehiculo.getMatricula())==null)
+			throw new ExcepcionAlquilerVehiculos("El vehiculo no existe");
+			
 	}
 
 	@Override
-	public void cerrarAlquiler(Vehiculo vehiculo) {
-		alquileres.cerrarAlquiler(vehiculo);
+	public void cerrarAlquiler( Cliente cliente, Vehiculo vehiculo) {
+		comprobarExistenciaVehiculo(vehiculo);
+		alquileres.cerrar(cliente, vehiculo);
 	}
 
-	public List<Alquiler> obtenerAlquileres() {
-		return alquileres.getAlquileres();
-
-	}
+//	public <Alquileres> obtenerAlquileres() {
+//		return alquileres.getAlquileres();
+//
+//	}
 	
+
+	
+	public List<Alquiler>obtenerAlquileres(){
+		return null;
+		
+	}
 
 	//  obtener Alquileres Abiertos
 	public List<Alquiler> obtenerAlquileresAbiertos() {
-		return alquileres.obtenerAlquileresAbiertos();
+		return null;
 
 	}
 
  // obtenerAlquileresCliente ( String dni ) 
 	
 	public List<Alquiler> obtenerAlquileresCliente(String dni) {
-		return alquileres.obtenerAlquileresCliente(dni);
+		return null;
 
 	}
 
 	public List<Alquiler> obtenerAlquileresVehiculos(String matricula) {
 
-		return alquileres.obtenerAlquileresVehiculos(matricula);
+		return null;
 	}
 	// acceso para leer - escribir clientes, vehiculos, alquileres
 
 	public void leerClientes() {
-		clientes.leerClientes();
+		
 	}
 
 	public void escribirClientes() {
-		clientes.escribirClientes();
+	
 	}
 
 	public void leerVehiculos() {
-		vehiculos.leerVehiculos();
+	
 	}
 
 	public void escribirVehiculos() {
-		vehiculos.escribirVehiculos();
+		
 	}
 
 	public void leerAlquileres() {
-		alquileres.leerAlquileres();
+		
 	}
 
 	public void escribirAlquileres() {
-		alquileres.escribirAlquileres();
+		
 	}
 
 	@Override
@@ -138,8 +156,6 @@ public class AlquilerVehiculos implements IModeloAlquilerVehiculos {
 		return "AlquilerVehiculos [clientes=" + clientes + ", vehiculos=" + vehiculos + ", alquileres=" + alquileres
 				+ "]";
 	}
-
-
-
-
+	
 }
+
